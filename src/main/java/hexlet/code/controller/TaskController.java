@@ -1,11 +1,6 @@
 package hexlet.code.controller;
 
-
 import com.querydsl.core.types.Predicate;
-//import hexlet.code.dto.TaskDto;
-//import hexlet.code.model.Task;
-//import hexlet.code.repository.TaskRepository;
-//import hexlet.code.service.TaskService;
 import hexlet.code.dto.TaskDto;
 import hexlet.code.model.Task;
 import hexlet.code.repository.TaskRepository;
@@ -27,11 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.validation.Valid;
 import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
 import static org.springframework.http.HttpStatus.CREATED;
-
 
 @AllArgsConstructor
 @RestController
@@ -57,8 +50,7 @@ public class TaskController {
         return taskRepository.findById(id).get();
     }
 
-    @Operation(summary = "Get all tasks if no filtration is set."
-            + " Else Retrieves all the elements that match the conditions defined by the specified predicate ")
+    @Operation(summary = "Get all tasks according to filtering conditions")
     @ApiResponses(@ApiResponse(responseCode = "200", content =
     @Content (schema =
         @Schema (implementation = Task.class))

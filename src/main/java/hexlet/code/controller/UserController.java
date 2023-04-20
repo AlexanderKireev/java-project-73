@@ -1,14 +1,5 @@
 package hexlet.code.controller;
 
-
-//import hexlet.code.dto.UserDto;
-//import hexlet.code.model.User;
-//import hexlet.code.repository.UserRepository;
-//import hexlet.code.service.UserService;
-//import hexlet.code.dto.UserDto;
-//import hexlet.code.model.User;
-//import hexlet.code.repository.UserRepository;
-//import hexlet.code.service.UserService;
 import hexlet.code.dto.UserDto;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
@@ -29,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-//import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -42,14 +32,13 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RequestMapping("${base-url}" + USER_CONTROLLER_PATH)
 public class UserController {
     public static final String USER_CONTROLLER_PATH = "/users";
-    public static final String LA = "/users/{id}/edit";
     public static final String ID = "/{id}";
 
 //    private static final String ONLY_OWNER_BY_ID = """
 //            @userRepository.findById(#id).get().getEmail() == authentication.getName()
 //       """;
 
-    // Админ может удалять любого пользователя
+    // Админ может удалять любого пользователя, хотел попробовать как это работает
     private static final String ADMIN_OR_ONLY_OWNER_BY_ID = """
             @userRepository.findById(#id).get().getEmail() == authentication.getName() ||
             @userRepository.findByEmail(authentication.getName()).get().getRole() == 'ADMIN'
@@ -57,9 +46,6 @@ public class UserController {
 
     private final UserService userService;
     private final UserRepository userRepository;
-
-//    @Autowired
-//    Authentication authentication;
 
     @Operation(summary = "Create new user")
     @ApiResponse(responseCode = "201", description = "User created")
@@ -88,12 +74,14 @@ public class UserController {
     })
     @GetMapping(ID)
     public Optional<User> getUserById(@PathVariable Long id) throws NoSuchElementException {
-//        System.out.println(userRepository.findByEmail(authentication.getName()).getRole());
-
         return userRepository.findById(id);
     }
 
-    //////////////////
+    @Operation(summary = "Update user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User has been updated"),
+            @ApiResponse(responseCode = "404", description = "User with this id wasn`t found")
+    })
     @PutMapping(ID)
     // Логика преавторизации для редактирования пользователя видимо прописана во фронтэнде
     // @PreAuthorize(ONLY_OWNER_BY_ID)
@@ -101,96 +89,14 @@ public class UserController {
         return userService.updateUser(id, dto);
     }
 
+    @Operation(summary = "Delete a user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User has been deleted"),
+            @ApiResponse(responseCode = "404", description = "User with this id wasn`t found")
+    })
     @DeleteMapping(ID)
     @PreAuthorize(ADMIN_OR_ONLY_OWNER_BY_ID)
     public void delete(@PathVariable final Long id) {
         userRepository.deleteById(id);
     }
-
-
-
-
-//    @Operation(summary = "Get list of all users")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", content =
-//            @Content(schema = @Schema(implementation = User.class))),
-//            @ApiResponse(responseCode = "400", description = "Bad Request", content =
-//
-//            @Content("aaa")
-//
-//
-//
-//            )
-//    })
-//
-//
-//    @ApiResponse(
-//            content = {
-//                    @Content(
-//                            mediaType = "application/json",
-//                            array = @ArraySchema(schema = @Schema(implementation = Product.class)))
-//            })
-//})
-//
-//
-//
-//
-//
-//
-//
-//
-//    @GetMapping
-//    public List<User> getAllUsers() {
-//        return userRepository.findAll()
-//                .stream()
-//                .toList();
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-////    @ApiResponses(@ApiResponse(responseCode = "200"))
-//    @GetMapping(ID)
-//    public Optional<User> getUserById(@PathVariable final Long id) {
-//        return userRepository.findById(id);
-//    }
-//
-////    @PutMapping(ID)
-////    @PreAuthorize(ONLY_OWNER_BY_ID)
-////    public User update(@PathVariable final long id, @RequestBody @Valid final UserDto dto) {
-////        return userService.updateUser(id, dto);
-////    }
-//
-//    @DeleteMapping(ID)
-////    @PreAuthorize(ONLY_OWNER_BY_ID)
-//    public void deleteUser(@PathVariable final long id) {
-//        userRepository.deleteById(id);
-//    }
-
 }
