@@ -18,7 +18,7 @@ spring:
     url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
     username: ${PGUSER}
     password: ${PGPASSWORD}
-    class-driver: org.postgresql.Driver
+#    class-driver: org.postgresql.Driver
 
 
   liquibase:
