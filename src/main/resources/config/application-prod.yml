@@ -15,18 +15,18 @@ spring:
     password: ${PGPASSWORD}
 
     liquibase:
-      enabled: false
+      enabled: true
 
 #    name: spring-blog
 
-  jpa:
-    show-sql: false
-
-
 #  jpa:
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: update
+#    show-sql: false
+
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 logging:
   level:
