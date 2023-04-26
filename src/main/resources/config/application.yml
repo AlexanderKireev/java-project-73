@@ -1,61 +1,26 @@
-#server:
-#  port: ${PORT:5000}
+server:
+  port: ${PORT:5000}
 
 base-url: /api
 
-#spring:
-#  application:
-#    name: app
-
-
-
-
-
-
-
 spring:
-  datasource:
-    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
-    username: ${PGUSER}
-    password: ${PGPASSWORD}
-#    class-driver: org.postgresql.Driver
-
+  application:
+    name: TaskManager
+#  profiles:
+#    active: ${APP_ENV}
 
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/changelog-master.xml
-
-
-#    url: jdbc:h2:./db
-#    username:
-#    password:
-#    driverClassName: org.h2.Driver
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create
-#    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
-
-
-
-
-
-
-
-
-
-
-
-
 
   mvc:
     hiddenmethod:
       filter:
         enabled: true
 
-#  jpa:
-#    hibernate:
-#      ddl-auto: create-drop
+  jpa:
+    hibernate:
+      ddl-auto: none
 
 springdoc:
   swagger-ui:

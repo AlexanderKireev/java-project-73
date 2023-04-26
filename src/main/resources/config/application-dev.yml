@@ -1,0 +1,32 @@
+server:
+  error:
+    include-stacktrace: on_param
+
+#springdoc:
+#  swagger-ui:
+#    path: /swagger-ui.html
+
+spring:
+  datasource:
+    url: jdbc:h2:./db
+#    url: jdbc:h2:mem:mydb
+    username:
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2console/
+      settings.trace: false
+      settings.web-allow-others: false
+
+logging:
+  level:
+    root: INFO
+    web: DEBUG
+    # org.hibernate.type.descriptor.sql: TRACE
+    # org.springframework.security: TRACE
+    # io.hexlet.typoreporter: DEBUG
