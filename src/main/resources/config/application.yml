@@ -10,7 +10,7 @@ spring:
     active: ${APP_ENV:dev}
 
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:db/changelog/changelog-master.xml
 
   mvc:
@@ -20,7 +20,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
 
 springdoc:
   swagger-ui:
