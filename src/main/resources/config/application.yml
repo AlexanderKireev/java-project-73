@@ -6,8 +6,8 @@ base-url: /api
 spring:
   application:
     name: TaskManager
-#  profiles:
-#    active: ${APP_ENV}
+  profiles:
+    active: ${APP_ENV:dev}
 
   liquibase:
     enabled: true
