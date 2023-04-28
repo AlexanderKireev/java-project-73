@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class LabelServiceImpl implements LabelService {
 
-    private LabelRepository labelRepository;
+    private final LabelRepository labelRepository;
 
     @Override
     public Label createLabel(final LabelDto labelDto) {
