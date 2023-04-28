@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 // type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 public class AppApplication {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
     }
 
