@@ -1,0 +1,37 @@
+base-url: "/api"
+
+spring:
+  application:
+    name: taskManager
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.xml
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+jwt:
+  #  5 min + 10 sec skew
+  issuer: alexander
+  expiration-msec: 300000
+  secret: secret_key
+  clock-skew-sec: 10
+
+
+
+logging:
+  level:
+    root: INFO
+    # web: DEBUG
+    # org.hibernate.type.descriptor.sql: TRACE
+    # io.hexlet.typoreporter: DEBUG
+    # Bug in database rider, a lot of log 'warning'
+    # com.github.database.rider.core.api.dataset.ScriptableTable: ERROR

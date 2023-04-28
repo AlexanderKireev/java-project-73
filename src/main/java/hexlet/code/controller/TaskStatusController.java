@@ -1,10 +1,5 @@
 package hexlet.code.controller;
 
-
-//import hexlet.code.model.TaskStatus;
-//import hexlet.code.repository.TaskStatusRepository;
-//import hexlet.code.service.TaskStatusService;
-//import hexlet.code.dto.TaskStatusDto;
 import hexlet.code.dto.TaskStatusDto;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskStatusRepository;
@@ -25,11 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
-
 import static hexlet.code.controller.TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
 import static org.springframework.http.HttpStatus.CREATED;
-
 
 @AllArgsConstructor
 @RestController
@@ -48,8 +40,8 @@ public class TaskStatusController {
             @ApiResponse(responseCode = "404", description = "Task status with this id wasn`t found")
     })
     @GetMapping(ID)
-    public Optional<TaskStatus> getTaskStatus(@PathVariable long id) {
-        return taskStatusRepository.findById(id);
+    public TaskStatus getTaskStatus(@PathVariable long id) {
+        return taskStatusRepository.findById(id).get();
     }
 
     @Operation(summary = "Get all statuses")
