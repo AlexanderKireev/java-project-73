@@ -15,7 +15,9 @@
 Используемые технологии:
 Spring Boot, Spring Security, Hibernate, Liquibase, PaaS, ORM, Rollbar, Swagger.
 
-Веб-адрес развернутого проекта -> https://java-project-72-lq3v.onrender.com/
+Веб-адрес развернутого проекта -> https://taskmanager-455a.onrender.com/
+
+Open API проекта -> https://taskmanager-455a.onrender.com/swagger.html
 
 ## Setup
 ```sh
