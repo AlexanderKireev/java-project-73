@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 @Transactional
 @AllArgsConstructor
@@ -26,6 +25,8 @@ public class LabelServiceImpl implements LabelService {
     public Label updateLabel(final LabelDto labelDto, final long id) {
         Label label = labelRepository.findById(id).get();
         label.setName(labelDto.getName());
+        label.setId(id);
         return labelRepository.save(label);
     }
+
 }
