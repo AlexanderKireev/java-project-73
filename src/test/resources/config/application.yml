@@ -3,8 +3,8 @@ base-url: "/api"
 spring:
   application:
     name: taskManager
-    profiles:
-      active: ${APP_ENV:dev}
+  profiles:
+    active: ${APP_ENV:dev}
 
   jpa:
     show-sql: true
