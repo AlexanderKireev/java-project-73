@@ -29,7 +29,7 @@ public class AuthenticationController {
     @Autowired
     private JWTUtil jwtTokenUtil;
 
-    @Operation(summary = "Authentication", hidden = true)
+    @Operation(summary = "Authentication")
     @PostMapping
     @ResponseStatus(OK)
     public String createAuthenticationToken(@RequestBody LoginDto dto) {

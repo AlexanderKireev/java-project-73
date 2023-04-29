@@ -7,6 +7,7 @@ import hexlet.code.service.TaskStatusService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import static hexlet.code.controller.TaskStatusController.TASK_STATUS_CONTROLLER
 import static org.springframework.http.HttpStatus.CREATED;
 
 @AllArgsConstructor
+@SecurityRequirement(name = "javainuseapi")
 @RestController
 @RequestMapping("${base-url}" + TASK_STATUS_CONTROLLER_PATH)
 public class TaskStatusController {

@@ -9,13 +9,16 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration()
-@ComponentScan({"hexlet.code"})
+@ComponentScan({
+        "hexlet.code",
+        "com.rollbar.spring"
+})
 public class RollbarConfig {
 
-    @Value("${rollbar_token:}")
+    @Value("${rollbar.token}")
     private String rollbarToken;
 
-    @Value("${spring.profiles.active:}")
+    @Value("${spring.profiles.active}")
     private String activeProfile;
 
     @Bean
@@ -30,5 +33,5 @@ public class RollbarConfig {
                 .environment(activeProfile)
                 .build();
     }
-}
 
+}

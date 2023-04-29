@@ -32,3 +32,6 @@ jwt:
   expiration-msec: 300000
   secret: secret_key
   clock-skew-sec: 10
+
+rollbar:
+  token: ${ROLLBAR_TOKEN}
