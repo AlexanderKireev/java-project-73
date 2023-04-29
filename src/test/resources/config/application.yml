@@ -28,7 +28,7 @@ jwt:
   clock-skew-sec: 10
 
 rollbar:
-  token: ${ROLLBAR_TOKEN}
+  token: ${ROLLBAR_TOKEN:111}
 
 
 logging:
