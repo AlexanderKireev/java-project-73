@@ -27,11 +27,11 @@ springdoc:
     path: /swagger.html
 
 jwt:
-#  5 min + 10 sec skew
+#  15 min + 10 sec skew
   issuer: alexander
-  expiration-msec: 300000
+  expiration-msec: 900000
   secret: secret_key
   clock-skew-sec: 10
 
 rollbar:
-  token: ${ROLLBAR_TOKEN}
+  token: ${ROLLBAR_TOKEN:111}

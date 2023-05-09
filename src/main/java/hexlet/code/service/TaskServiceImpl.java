@@ -9,7 +9,6 @@ import hexlet.code.repository.TaskRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -25,24 +24,21 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task createNewTask(TaskDto taskDto) {
-        final Task newTask = fromDto(taskDto);
+        final Task newTask = fromDto(taskDto, new Task());
         return taskRepository.save(newTask);
     }
 
     @Override
     public Task updateTask(TaskDto taskDto, long id) {
-        final Task taskToUpdate = fromDto(taskDto);
-        taskToUpdate.setId(id);
-        return taskRepository.save(taskToUpdate);
-    }
+        Task taskFromDb = taskRepository.findById(id).get();
+        final Task updatedTask = fromDto(taskDto, taskFromDb);
+        return taskRepository.save(updatedTask);
+   }
 
-    private Task fromDto(final TaskDto dto) {
+    private Task fromDto(final TaskDto dto, final Task task) {
         final User author = userService.getCurrentUser();
         final User executor = Optional.ofNullable(dto.getExecutorId())
                 .map(User::new)
-                .orElse(null);
-        final TaskStatus taskStatus = Optional.ofNullable(dto.getTaskStatusId())
-                .map(TaskStatus::new)
                 .orElse(null);
         final Set<Label> labels = Optional.ofNullable(dto.getLabelIds())
                 .orElse(Set.of())
@@ -51,13 +47,22 @@ public class TaskServiceImpl implements TaskService {
                 .map(Label::new)
                 .collect(Collectors.toSet());
 
-        return Task.builder()
-                .author(author)
-                .executor(executor)
-                .taskStatus(taskStatus)
-                .labels(labels)
-                .name(dto.getName())
-                .description(dto.getDescription())
-                .build();
+        task.setName(dto.getName());
+        task.setDescription(dto.getDescription());
+        task.setAuthor(author);
+        task.setExecutor(executor);
+        task.setTaskStatus(new TaskStatus(dto.getTaskStatusId()));
+        task.setLabels(labels);
+
+        return task;
+
+//        return Task.builder()
+//                .author(author)
+//                .executor(executor)
+//                .taskStatus(taskStatus)
+//                .labels(labels)
+//                .name(dto.getName())
+//                .description(dto.getDescription())
+//                .build();
     }
 }

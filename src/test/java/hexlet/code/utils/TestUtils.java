@@ -18,7 +18,6 @@ import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.dto.LabelDto;
 import hexlet.code.dto.TaskStatusDto;
-import hexlet.code.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;

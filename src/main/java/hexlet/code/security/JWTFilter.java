@@ -1,5 +1,7 @@
 package hexlet.code.security;
 
+import hexlet.code.config.SecurityConfig;
+import hexlet.code.utils.JWTUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

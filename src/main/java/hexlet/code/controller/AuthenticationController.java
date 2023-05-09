@@ -1,7 +1,7 @@
 package hexlet.code.controller;
 
 import hexlet.code.dto.LoginDto;
-import hexlet.code.security.JWTUtil;
+import hexlet.code.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
-import static hexlet.code.security.SecurityConfig.LOGIN;
+import static hexlet.code.config.SecurityConfig.LOGIN;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
 

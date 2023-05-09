@@ -36,9 +36,9 @@ public class UserController {
     public static final String USER_CONTROLLER_PATH = "/users";
     public static final String ID = "/{id}";
 
-//    private static final String ONLY_OWNER_BY_ID = """
-//            @userRepository.findById(#id).get().getEmail() == authentication.getName()
-//       """;
+    private static final String ONLY_OWNER_BY_ID = """
+            @userRepository.findById(#id).get().getEmail() == authentication.getName()
+       """;
 
     // Админ может удалять любого пользователя, хотел попробовать как это работает
     private static final String ADMIN_OR_ONLY_OWNER_BY_ID = """
@@ -57,16 +57,13 @@ public class UserController {
         return userService.createNewUser(userDto);
     }
 
-
     @Operation(summary = "Get all users")
     @ApiResponses(@ApiResponse(responseCode = "200", content =
     @Content(schema = @Schema(implementation = User.class))
     ))
     @GetMapping
     public List<User> getAllUsers() {
-        return userRepository.findAll()
-                .stream()
-                .toList();
+        return userService.getAllUsers();
     }
 
     @Operation(summary = "Get user by ID")
@@ -85,8 +82,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User with this id wasn`t found")
     })
     @PutMapping(ID)
-    // Логика преавторизации для редактирования пользователя видимо прописана во фронтэнде
-    // @PreAuthorize(ONLY_OWNER_BY_ID)
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     public User update(@PathVariable final Long id, @RequestBody @Valid final UserDto dto) {
         return userService.updateUser(id, dto);
     }

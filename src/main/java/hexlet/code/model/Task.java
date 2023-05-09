@@ -43,7 +43,6 @@ public class Task {
 
     private String description;
 
-
     @ManyToOne
     @JoinColumn(name = "task_status_id")
     private TaskStatus taskStatus;

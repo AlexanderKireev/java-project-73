@@ -25,7 +25,7 @@ public class LabelServiceImpl implements LabelService {
     public Label updateLabel(final LabelDto labelDto, final long id) {
         Label label = labelRepository.findById(id).get();
         label.setName(labelDto.getName());
-        label.setId(id);
+//        label.setId(id);
         return labelRepository.save(label);
     }
 
