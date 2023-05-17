@@ -7,11 +7,21 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @AllArgsConstructor
 public class TaskStatusServiceImpl implements TaskStatusService {
     private final TaskStatusRepository taskStatusRepository;
+
+    @Override
+    public List<TaskStatus> getAllStatuses() {
+        return taskStatusRepository
+                .findAll()
+                .stream()
+                .toList();
+    }
 
     @Override
     public TaskStatus createTaskStatus(TaskStatusDto taskStatusDto) {

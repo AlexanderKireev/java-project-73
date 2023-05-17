@@ -50,10 +50,7 @@ public class TaskStatusController {
     @ApiResponse(responseCode = "200")
     @GetMapping
     public List<TaskStatus> getAll() {
-        return taskStatusRepository
-                .findAll()
-                .stream()
-                .toList();
+        return taskStatusService.getAllStatuses();
     }
 
     @Operation(summary = "Create a new task status")

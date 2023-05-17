@@ -5,7 +5,10 @@ import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
 import hexlet.code.dto.TaskDto;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
+import hexlet.code.repository.TaskStatusRepository;
+import hexlet.code.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,9 @@ public class TaskServiceImpl implements TaskService {
 
     private TaskRepository taskRepository;
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final LabelRepository labelRepository;
+    private final TaskStatusRepository taskStatusRepository;
 
     @Override
     public Task createNewTask(TaskDto taskDto) {
@@ -37,21 +43,29 @@ public class TaskServiceImpl implements TaskService {
 
     private Task fromDto(final TaskDto dto, final Task task) {
         final User author = userService.getCurrentUser();
+
         final User executor = Optional.ofNullable(dto.getExecutorId())
-                .map(User::new)
+//                .map(User::new)
+                .map(id -> userRepository.findById(id).get())
                 .orElse(null);
+
         final Set<Label> labels = Optional.ofNullable(dto.getLabelIds())
                 .orElse(Set.of())
                 .stream()
                 .filter(Objects::nonNull)
-                .map(Label::new)
+//                .map(id -> new Label(id))
+                .map(id -> labelRepository.findById(id).get())
                 .collect(Collectors.toSet());
+
+        final TaskStatus taskStatus = Optional.ofNullable(dto.getTaskStatusId())
+                .map(id -> taskStatusRepository.findById(id).get())
+                .orElse(null);
 
         task.setName(dto.getName());
         task.setDescription(dto.getDescription());
         task.setAuthor(author);
         task.setExecutor(executor);
-        task.setTaskStatus(new TaskStatus(dto.getTaskStatusId()));
+        task.setTaskStatus(taskStatus);
         task.setLabels(labels);
 
         return task;

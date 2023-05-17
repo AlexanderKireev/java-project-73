@@ -3,6 +3,7 @@ package hexlet.code;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -63,7 +64,13 @@ public class BaseExceptionHandler {
 
     @ResponseStatus(UNAUTHORIZED)
     @ExceptionHandler(UsernameNotFoundException.class)
-    public String userNitFoundExceptionHandler(UsernameNotFoundException exception) {
+    public String userNotFoundExceptionHandler(UsernameNotFoundException exception) {
+        return exception.getMessage();
+    }
+
+    @ResponseStatus(UNAUTHORIZED)
+    @ExceptionHandler(BadCredentialsException.class)
+    public String badCredentialsExceptionHandler(BadCredentialsException exception) {
         return exception.getMessage();
     }
 }

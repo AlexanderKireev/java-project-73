@@ -5,11 +5,11 @@ import hexlet.code.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -38,11 +38,9 @@ public class AuthenticationController {
             final var authRequest = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
             authResult = authenticationManager.authenticate(authRequest); // пытаемся авторизоваться
         } catch (AuthenticationException e) { // если нет, ошибка 401
-//            throw new AuthException("Wrong email or password");
-            throw new UsernameNotFoundException("Wrong email or password", e);
-//            throw new BadCredentialsException("Invalid username or password");
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Имя или пароль неправильны", e);
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            // добавил 401 in BaseExceptionHandler, иначе BadCredentialsException выдает код 500
+            throw new BadCredentialsException("Wrong username or password", e);
+//            throw new UsernameNotFoundException("Wrong email or password", e);
         }
 
         final UserDetails user = (UserDetails) authResult.getPrincipal();
@@ -50,4 +48,3 @@ public class AuthenticationController {
 //        return jwtTokenUtil.generateToken(user);
     }
 }
-

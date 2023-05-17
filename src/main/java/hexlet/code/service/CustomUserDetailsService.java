@@ -11,10 +11,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+import static org.hibernate.cfg.AvailableSettings.USER;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    public static final List<GrantedAuthority> DEFAULT_AUTHORITIES = List.of(new SimpleGrantedAuthority("USER"));
+    public static final List<GrantedAuthority> DEFAULT_AUTHORITIES = List.of(new SimpleGrantedAuthority(USER));
 
     @Autowired
     private UserRepository userRepository;
@@ -22,10 +24,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 //        Optional<hexlet.code.model.User> user = userRepository.findByEmail(email);
-        User user = userRepository.findByEmail(email).get();
-        if (user == null) {
-            throw new UsernameNotFoundException("Unknown user: " + email);
-        }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Unknown user: " + email));
+
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
